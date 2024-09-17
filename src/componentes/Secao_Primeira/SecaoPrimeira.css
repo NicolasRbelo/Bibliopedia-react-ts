@@ -1,0 +1,59 @@
+/* Estilo para a seção de fundo */
+.BackGroundSection {
+    margin-top: 2rem;
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+
+.container-imagem-livros {
+    position: relative;
+    width: 50%; 
+    max-width: 28rem; 
+    margin: 0 auto; 
+    bottom: 1rem;
+}
+
+
+.swiper-container {
+    width: 100%;
+}
+
+.swiper-slide {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+
+.slide-item {
+    width: 75%; 
+    height: auto; 
+    object-fit: cover; 
+}
+
+
+.swiper-button-next, 
+.swiper-button-prev {
+    position: fixed; 
+    top: 35%; 
+    transform: translateY(-50%); 
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff; 
+    width: 2.5rem; 
+    height: 2.5rem; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    border-radius: 50%; 
+    cursor: pointer; 
+}
+
+.swiper-button-next {
+    right: 0.625rem;
+}
+
+
+.swiper-button-prev {
+    left: 0.625rem; 
+}

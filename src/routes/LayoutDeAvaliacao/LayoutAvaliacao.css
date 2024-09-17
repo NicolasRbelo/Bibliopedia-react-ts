@@ -1,0 +1,63 @@
+.Pagina {
+    display: flex;
+    justify-content: center;  
+    align-items: flex-start;
+    flex-direction: column;  
+    margin: 2rem;
+}
+
+.section-container {
+    display: flex; 
+    gap: 4rem;
+    width: 100%;  
+}
+
+.container-livro {
+    width: 21.9rem;  
+    padding: 1.5rem;  
+    border: 2px solid black;  
+    position: relative;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+}
+
+.container-livro img {
+    width: 100%; 
+    height: auto;
+    display: block;
+}
+
+.titulo {
+    position: absolute;
+    top: 0.6rem;  
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.sinopse {
+    position: relative;
+    font-size: 1.2rem;
+    max-width: 55.5rem;  
+    padding: 1rem;
+    border: 1px solid black;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    line-height: 1.6; 
+
+    
+}
+
+.carregamento {
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+}
+
+
