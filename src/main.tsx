@@ -8,7 +8,8 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 import LayoutAvaliacao from './routes/LayoutDeAvaliacao'
-import PaginaDeLogin from './routes/PaginaDeLogin'
+import PaginaDeEntrada from './routes/PaginaDeLogin'
+import PaginaParaCriacao from './componentes/CriaçãodeLogin'
 
 // Definindo as rotas da aplicação
 const router = createBrowserRouter([
@@ -22,7 +23,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'login',
-        element: <PaginaDeLogin />,
+        element: <PaginaDeEntrada />,
+      },
+      {
+        path: 'cadastro',
+        element: <PaginaParaCriacao />,
       },
     ],
   },

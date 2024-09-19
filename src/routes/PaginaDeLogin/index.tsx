@@ -1,26 +1,23 @@
-import './PaginaDelogin.css'
+import { Link } from 'react-router-dom'
+import './PaginadeLogin.css'
 
-// const handleInputSubmit = () = {
-
-// }
-
-const PaginaDeLogin = () => {
+const PaginaDeEntrada = () => {
   return (
     <div>
       <div className="container-login">
         <h3>Login</h3>
         <form action="" method="post" className="container-form">
+          {' '}
           <label htmlFor="email">Email: </label>
-          <input type="email" name="email" id="email" className="input-login" />
-
+          <input type="email" name="Email" id="email" className="input-login" />
           <label htmlFor="senha">Senha: </label>
           <input
             type="password"
-            name="senha"
+            name="Password"
             id="senha"
             className="input-login"
           />
-
+          <Link to="/cadastro">Cadastrar</Link>
           <button type="submit" className="btn-entrar">
             Entrar
           </button>
@@ -30,4 +27,4 @@ const PaginaDeLogin = () => {
   )
 }
 
-export default PaginaDeLogin
+export default PaginaDeEntrada
