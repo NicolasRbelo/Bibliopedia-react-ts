@@ -1,4 +1,4 @@
-import { ChangeEvent, type FormEvent, useState } from 'react'
+import { useState } from 'react'
 import './PaginaDelogin.css'
 
 interface User {
@@ -35,7 +35,7 @@ const PaginaParaCriacao = () => {
     console.log('Dados enviados:', formData)
 
     try {
-      const response = await fetch('/api/comentarios', {
+      const response = await fetch('https://127.0.0.1:5500/usuario', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,10 +44,10 @@ const PaginaParaCriacao = () => {
       })
       if (response.ok) {
         const data = await response.json()
-        console.log('Login realizado com sucesso:', data)
+        console.log('Cadastro realizado com sucesso:', data)
         setLoginVazio()
       } else {
-        setMensagemErro('Erro ao fazer login. Verifique suas credenciais.')
+        setMensagemErro('Erro ao Cadastrar. Verifique suas credenciais.')
         setLoginVazio()
       }
     } catch (error) {
