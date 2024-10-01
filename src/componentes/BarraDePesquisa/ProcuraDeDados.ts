@@ -5,6 +5,7 @@ interface VolumeInfo {
   title: string
   imageLinks?: {
     smallThumbnail?: string
+    thumbnail?: string // Adiciona o tipo `thumbnail`
   }
   description?: string
 }
@@ -36,7 +37,6 @@ export async function PesquisarNomes(nome: string): Promise<string[]> {
   const resultados = await PesquisarLivros(nome)
   const ListadeLivros: string[] = []
   if (resultados.length) {
-    // Verifica se `resultados` não está vazio
     // biome-ignore lint/complexity/noForEach: <explanation>
     resultados.forEach(item => {
       const nomes = item.volumeInfo.title
@@ -59,12 +59,11 @@ export async function PesquisarImagens(nome: string): Promise<string[]> {
   const resultados = await PesquisarLivros(nome)
   const ListadeImagens: string[] = []
   if (resultados.length) {
-    // Verifica se `resultados` não está vazio
     // biome-ignore lint/complexity/noForEach: <explanation>
     resultados.forEach(item => {
       try {
         const imagens =
-          item.volumeInfo.imageLinks?.smallThumbnail || 'FileNotFoundError' // Usando Optional Chaining
+          item.volumeInfo.imageLinks?.thumbnail || 'FileNotFoundError' // Agora verifica corretamente `thumbnail`
         ListadeImagens.push(imagens)
       } catch (error) {
         ListadeImagens.push('FileNotFoundError')
@@ -78,7 +77,7 @@ export async function PesquisarImagem(nome: string): Promise<string> {
   const resultado = await PesquisarLivros(nome)
   if (resultado.length > 0) {
     const imagem =
-      resultado[0].volumeInfo.imageLinks?.smallThumbnail || 'FileNotFoundError'
+      resultado[0].volumeInfo.imageLinks?.thumbnail || 'FileNotFoundError'
     return imagem
   }
   return 'FileNotFoundError'
@@ -105,5 +104,3 @@ export async function InformacoesGerais(
   console.log(dicionario)
   return dicionario
 }
-
-// Exemplo de uso

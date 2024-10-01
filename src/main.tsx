@@ -21,15 +21,15 @@ const router = createBrowserRouter([
         path: 'livro/:livroId', // Caminho correto para a rota
         element: <LayoutAvaliacao />,
       },
-      {
-        path: 'login',
-        element: <PaginaDeEntrada />,
-      },
-      {
-        path: 'cadastro',
-        element: <PaginaParaCriacao />,
-      },
     ],
+  },
+  {
+    path: 'login',
+    element: <PaginaDeEntrada />,
+  },
+  {
+    path: 'cadastro',
+    element: <PaginaParaCriacao />,
   },
 ])
 
