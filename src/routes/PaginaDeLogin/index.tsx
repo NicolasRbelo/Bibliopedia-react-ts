@@ -1,18 +1,19 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './PaginadeLogin.css'
 import { useState } from 'react'
 
-interface userLogin {
+interface UserLogin {
   Email: string
   Senha: string
 }
 
 const PaginaDeEntrada = () => {
-  const [formData, setFormData] = useState<userLogin>({
+  const [formData, setFormData] = useState<UserLogin>({
     Email: '',
     Senha: '',
   })
   const [mensagemErro, setMensagemErro] = useState<string | null>(null)
+  const navigate = useNavigate()
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -27,8 +28,8 @@ const PaginaDeEntrada = () => {
     console.log('Dados enviados:', formData)
 
     try {
-      const response = await fetch('https://127.0.0.1:5500/login', {
-        method: 'POST',
+      const response = await fetch('http://127.0.0.1:5500/login', {
+        method: 'POST', // Verifique a rota correta do seu backend
         headers: {
           'Content-Type': 'application/json',
         },
@@ -37,8 +38,15 @@ const PaginaDeEntrada = () => {
       if (response.ok) {
         const data = await response.json()
         console.log('Login realizado com sucesso:', data)
+
+        localStorage.setItem('user_token', data.sessao.user_id)
+        navigate('/home')
       } else {
-        setMensagemErro('Erro ao fazer login. Verifique suas credenciais.')
+        const errorData = await response.json()
+        setMensagemErro(
+          errorData.message ||
+            'Erro ao fazer login. Verifique suas credenciais.'
+        )
       }
     } catch (error) {
       console.error('Erro ao fazer requisição:', error)
@@ -57,7 +65,6 @@ const PaginaDeEntrada = () => {
           className="container-form"
           onSubmit={handleSubmit}
         >
-          {' '}
           <label htmlFor="email">Email: </label>
           <input
             type="email"

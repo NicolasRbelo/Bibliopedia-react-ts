@@ -10,6 +10,7 @@ import 'swiper/css/scrollbar'
 import LayoutAvaliacao from './routes/LayoutDeAvaliacao'
 import PaginaDeEntrada from './routes/PaginaDeLogin'
 import PaginaParaCriacao from './componentes/CriaçãodeLogin'
+import SecaodeReel from './componentes/Secao_Primeira'
 
 // Definindo as rotas da aplicação
 const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
         element: <LayoutAvaliacao />,
       },
     ],
+  },
+  {
+    path: 'home',
+    element: <SecaodeReel />,
   },
   {
     path: 'login',

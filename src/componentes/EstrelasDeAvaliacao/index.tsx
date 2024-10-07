@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import './Estrelas.css'
 
 interface AvaliacaoSliderProps {
@@ -19,7 +19,9 @@ const AvaliacaoSlider: React.FC<AvaliacaoSliderProps> = ({
     const filledStars = Math.round(rating)
 
     return Array.from({ length: totalStars }, (_, index) => (
+      // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
       <svg
+        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
         key={index}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
