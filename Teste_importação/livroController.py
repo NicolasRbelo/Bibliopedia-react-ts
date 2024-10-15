@@ -152,12 +152,25 @@ def listarTodosUsuario():
 
 def salvarUsuario():    
     usuario = request.json     
-    salvarUserService(usuario)
-    return  make_response(
-        jsonify(
-            mensagem = "Cadastro com sucesso!!"
+    verificacao = salvarUserService(usuario)
+    if verificacao == ('Email já existe'):
+        return  make_response(
+            jsonify(
+                mensagem = "Email já existe"
+            )
         )
-    )
+    elif verificacao == ("Campo email esta vazio"):
+        return  make_response(
+            jsonify(
+                mensagem = "Campo email esta vazio"
+            )
+        )
+    else:
+        return  make_response(
+            jsonify(
+                mensagem = "Cadastro com sucesso!!"
+            )
+        )
 
     
 def listarApenasUmUsuario(id):       
@@ -216,17 +229,52 @@ def login():
                 status = 401
             )
         )
-    
+
+def logout():
+    if 'user_id' in session:
+        session.pop('user_id', None)
+        session.pop('user_name', None)
+        session.pop('user_email', None)
+        
+        return make_response(
+            jsonify(
+                mensagem="Logout realizado com sucesso",
+                status=200
+            ), 200
+        )
+    else:
+
+        return make_response(
+            jsonify(
+                mensagem="Nenhum usuário está logado",
+                status=400
+            ), 400
+        )
     
 ##Comentario
 
 def salvarComentario():    
-    comentario = request.json     
-    SalvarComentario(comentario)
+    comentario = request.json 
+    comentarioCorrigido = {'idLivro': PesquisarId(comentario.get("LivroId")),
+                            'idUsuario' : comentario.get('userId'),
+                            'comentarios' : comentario.get('comentario'),
+                            'nota':comentario.get('rating')}
+    SalvarComentario(comentarioCorrigido)
     return make_response(
         jsonify(
             mensagem = "Comentario registrado"
         )
     )
     
+def Vercomentarios(idLivro):
+    Comentarios(idLivro)
     
+##Rating
+def notaLivro(idLivro):
+    notaMedia = ServiceMediaNotas(idLivro)
+    return make_response(
+        jsonify(
+            mensagem = "Nota do livro",
+            nota = notaMedia
+        )
+    )

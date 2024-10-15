@@ -1,5 +1,5 @@
 from flask import Blueprint
-from livro import *
+from livroController import *
 
 
 blueprint = Blueprint('blueprint',__name__)
@@ -8,7 +8,7 @@ blueprint = Blueprint('blueprint',__name__)
 
 blueprint.route('/livros', methods=['GET'])(TodosLivros)
 blueprint.route('/livro', methods=['POST'])(SalveLivro)
-#blueprint.route('/livro/<int:id>', methods=['DELETE'])(removerUmLivro)#
+#blueprint.route('/livro/<int:id>', methods=['DELETE'])(removerUmLivro)
 
 ##Usuarios
 
@@ -18,10 +18,14 @@ blueprint.route('/usuario/<int:id>', methods=['GET'])(listarApenasUmUsuario)
 blueprint.route('/usuario/<int:id>', methods=['PUT'])(atualizarUmUsuario)
 blueprint.route('/usuario/<int:id>', methods=['DELETE'])(removerUmUsuario)
 blueprint.route('/login', methods=['GET','POST'])(login)
-blueprint.route('/logout',)
+blueprint.route('/logout',methods=['PUT'])(logout)
 
 
 ##Comentario
 
-blueprint.route('/usuario', methods=['POST'])(salvarComentario)
+blueprint.route('/comentario', methods=['POST'])(salvarComentario)
+
+
+##Rating
+blueprint.route('/rating-media/<idLivro>',methods=['GET'])(notaLivro)
 

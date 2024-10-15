@@ -5,13 +5,35 @@
   margin: 10rem auto; /* Centraliza horizontalmente */
   width: 100%;
   max-width: 26rem;
-  background: black;
+  background: var(--primary-color);
   padding: 1.25rem;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 40px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .container-login h3 {
+  font-size: 2.5rem;
+  text-decoration: underline;
   text-align: center;
+  color: var(--phrase-color);
+}
+.container-form label {
+  font-size: 1.2rem;
+  color: var(--phrase-color);
+  text-decoration: underline;
+}
+.container-form input {
+  background-color: var(--backgroud-color);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 4px 0px inset;
+  border-radius: 5px;
+}
+.container-form a {
+  width: 5rem;
+  text-decoration: none;
+  color: var(--phrase-color);
+}
+.container-form a:hover {
+  transition: 0.10s;
+  text-decoration: underline;
 }
 
 .container-form {
@@ -34,12 +56,12 @@
   border: none;
   width: 95%;
   border-radius: 4px;
-  background-color: #4caf50;
-  color: white;
+  background-color: var(--phrase-color);
+  color: var(--primary-color);
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .btn-entrar:hover {
-  background-color: #45a049;
+  background-color: var(--second-color);
 }

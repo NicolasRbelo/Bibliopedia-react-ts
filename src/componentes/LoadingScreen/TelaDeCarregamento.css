@@ -1,0 +1,44 @@
+/* LoadingScreen.css */
+
+:root {
+  --backgroud-color: #e5e5cb;
+  --primary-color: #d5cea3;
+  --second-color: #3c2a21;
+  --phrase-color: #1a120b;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Preenche toda a altura da tela */
+  background-color: var(--backgroud-color);
+  color: var(--phrase-color);
+  font-family: Arial, sans-serif;
+}
+
+.spinner {
+  border: 8px solid var(--primary-color); /* Cor da borda do spinner */
+  border-top: 8px solid var(--second-color); /* Cor da parte superior */
+  border-radius: 50%;
+  width: 60px; /* Largura do spinner */
+  height: 60px; /* Altura do spinner */
+  animation: spin 1s linear infinite; /* Animação de rotação */
+  margin-bottom: 1rem; /* Espaçamento inferior */
+}
+
+.loading-text {
+  font-size: 1.5rem; /* Tamanho do texto */
+  font-weight: bold; /* Texto em negrito */
+}
+
+/* Animação de rotação */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

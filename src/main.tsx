@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
@@ -11,6 +11,7 @@ import LayoutAvaliacao from './routes/LayoutDeAvaliacao'
 import PaginaDeEntrada from './routes/PaginaDeLogin'
 import PaginaParaCriacao from './componentes/CriaçãodeLogin'
 import SecaodeReel from './componentes/Secao_Primeira'
+import { PaginaDePerfil } from './routes/PaginaDePerfil'
 
 // Definindo as rotas da aplicação
 const router = createBrowserRouter([
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: 'livro/:livroId', // Caminho correto para a rota
         element: <LayoutAvaliacao />,
+      },
+      {
+        index: true,
+        element: <Navigate to="/home" />,
       },
     ],
   },
@@ -35,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: 'cadastro',
     element: <PaginaParaCriacao />,
+  },
+  {
+    path: 'perfil',
+    element: <PaginaDePerfil />,
   },
 ])
 

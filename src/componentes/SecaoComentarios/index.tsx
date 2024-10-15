@@ -1,7 +1,8 @@
 import type React from 'react'
-import { useState, type ChangeEvent, type FormEvent } from 'react'
+import { useState, type ChangeEvent, type FormEvent, useEffect } from 'react'
 import './SecaoComentario.css'
-import AvaliacaoSlider from '../EstrelasDeAvaliacao'
+import StarRating from '../EstrelasDeAvaliacao'
+import { ListaComentario } from '../ListaComentarios'
 
 interface SecaoComentariosProps {
   LivroId: string
@@ -9,7 +10,16 @@ interface SecaoComentariosProps {
 
 const SecaoComentarios: React.FC<SecaoComentariosProps> = ({ LivroId }) => {
   const [comentario, setComentario] = useState<string>('')
-  const [rating, setRating] = useState<number>(3) // Valor padrão do rating
+  const [rating, setRating] = useState<number>(3)
+  const [userId, setUserId] = useState<number | null>(null)
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem('user_token')
+    if (storedToken) {
+      const parsedToken = JSON.parse(storedToken)
+      setUserId(parsedToken)
+    }
+  }, [])
 
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setComentario(event.target.value)
@@ -17,24 +27,28 @@ const SecaoComentarios: React.FC<SecaoComentariosProps> = ({ LivroId }) => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    console.log('Enviando comentário:', { LivroId, comentario, rating })
+
+    const comentarioData = {
+      LivroId,
+      comentario,
+      rating,
+      ...(userId && { userId }),
+    }
+
+    console.log('Enviando comentário:', comentarioData)
 
     try {
-      const response = await fetch('/api/comentarios', {
+      const response = await fetch('http://127.0.0.1:5500/comentario', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          LivroId,
-          comentario,
-          rating,
-        }),
+        body: JSON.stringify(comentarioData),
       })
 
       if (response.ok) {
         console.log('Comentário enviado com sucesso!')
-        setComentario('') // Limpa o campo de comentários após o envio
+        setComentario('')
       } else {
         console.error('Erro ao enviar o comentário', response.status)
       }
@@ -45,9 +59,7 @@ const SecaoComentarios: React.FC<SecaoComentariosProps> = ({ LivroId }) => {
 
   return (
     <section className="container-comentario">
-      <form onSubmit={handleSubmit}>
-        {/* Avaliação por Slider - Passa o estado do rating e o setter */}
-        <AvaliacaoSlider rating={rating} setRating={setRating} />
+      <form onSubmit={handleSubmit} className="form-comentario">
         <textarea
           className="comentarios"
           value={comentario}
@@ -55,6 +67,8 @@ const SecaoComentarios: React.FC<SecaoComentariosProps> = ({ LivroId }) => {
           placeholder="Digite seu comentário..."
           required
         />
+        {/* Substituímos AvaliacaoSlider por StarRating */}
+        <StarRating rating={rating} setRating={setRating} />
         <button className="btn-submit" type="submit">
           Comentar
         </button>

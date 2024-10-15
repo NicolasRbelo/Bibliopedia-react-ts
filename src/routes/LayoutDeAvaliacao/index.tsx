@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { InformacoesGerais } from '../../componentes/BarraDePesquisa/ProcuraDeDados' // Atualize o caminho se necessário
 import SecaoComentarios from '../../componentes/SecaoComentarios'
+import LoadingScreen from '../../componentes/LoadingScreen'
 
 interface Informacoes {
   Nome: string
@@ -14,6 +15,7 @@ interface Informacoes {
 const LayoutAvaliacao: React.FC = () => {
   const { livroId } = useParams<{ livroId: string }>() // Tipagem para o parâmetro da rota
   const [informacoes, setInformacoes] = useState<Informacoes | null>(null)
+  const isAuthenticated = !!localStorage.getItem('user_token')
 
   useEffect(() => {
     const fetchInformacoes = async () => {
@@ -43,10 +45,10 @@ const LayoutAvaliacao: React.FC = () => {
               <p className="sinopse">{informacoes.Descricao}</p>
             </div>
           </section>
-          <SecaoComentarios LivroId={livroId!} />
+          {isAuthenticated ? <SecaoComentarios LivroId={livroId!} /> : null}
         </>
       ) : (
-        <p className="carregamento">Carregando...</p>
+        <LoadingScreen />
       )}
     </div>
   )

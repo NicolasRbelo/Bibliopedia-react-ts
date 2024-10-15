@@ -3,9 +3,10 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --backgroud-color: #e5e5cb;
+  --primary-color: #d5cea3;
+  --second-color: #3c2a21;
+  --phrase-color: #1a120b;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,7 +16,7 @@
 
 html {
   position: relative;
-  background-color: #dcdcdc;
+  background-color: var(--backgroud-color);
 }
 
 html,

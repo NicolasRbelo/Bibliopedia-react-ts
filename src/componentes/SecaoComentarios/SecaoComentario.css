@@ -1,19 +1,33 @@
 .container-comentario {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end; /* Alinhar à esquerda */
   margin: 20px;
 }
 
+/* Estilo do formulário */
+.form-comentario {
+  position: relative;
+  right: 38rem;
+  display: flex;
+  flex-direction: column; /* Mantém os itens empilhados */
+  align-items: flex-end; /* Alinhar conteúdo do formulário à esquerda */
+  width: 100%;
+  top: 2rem; /* Garante que o formulário ocupe a largura total disponível */
+}
+
 .comentarios {
+  position: relative;
   width: 100%;
   max-width: 600px;
   height: 100px;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid black;
   border-radius: 4px;
   font-size: 16px;
   margin-bottom: 15px;
+  min-width: 56rem;
+  background-color: var(--backgroud--color);
 }
 
 .btn-submit {
@@ -34,7 +48,7 @@
 .slider-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* Alinhar slider à esquerda */
   margin-bottom: 20px;
 }
 

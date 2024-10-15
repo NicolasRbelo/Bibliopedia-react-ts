@@ -1,6 +1,6 @@
 from config import conexao
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from datetime import date
 
 ## Manuseio do banco de livros
 def AdicionarLivro(dados):
@@ -63,10 +63,19 @@ def salvarUsuario(usuario):
     senhaHashed = generate_password_hash(usuario.get('Senha'), method='pbkdf2:sha256')
     with conexao() as conectar:
         cursor = conectar.cursor() 
-        cursor.execute(
-            'INSERT INTO dados.usuarios (NomeUsuario, EmailUsuario, SenhaUsuario) VALUES (%s,%s, %s)',
-            (username, email, senhaHashed))
-        conectar.commit()
+        cursor.execute("SELECT EmailUsuario FROM dados.usuarios WHERE EmailUsuario = %s",(email,))
+        verficacao = cursor.fetchone()
+    if verficacao:
+        return "Email já existe"
+    elif email==(''):
+        return 'Campo email esta vazio'
+    else:
+        with conexao() as conectar:
+            cursor = conectar.cursor() 
+            cursor.execute(
+                'INSERT INTO dados.usuarios (NomeUsuario, EmailUsuario, SenhaUsuario) VALUES (%s,%s, %s)',
+                (username, email, senhaHashed))
+            conectar.commit()
     
 
 
@@ -96,8 +105,6 @@ def removerUmUsuario(id):
         conectar.commit()
         cursor.close()
 
-
-
 def login(usuario):
     
     email = usuario.get('Email')
@@ -109,30 +116,29 @@ def login(usuario):
     cursor.execute("SELECT * FROM dados.usuarios WHERE EmailUsuario = %s", (email,))
     user = cursor.fetchone()
     
+    cursor.close()
+    connection.close()
     
     if user and check_password_hash(user['SenhaUsuario'],senha):
-        cursor.close()
-        connection.close()
         return user['idUsuario']
     else:
-        cursor.close()
-        connection.close()
         return False
     
 
 
 
-## Manuseio do banco de Comentarios
 
 def SalvarComentarios(comentario):  
-    idLivro = comentario.get("idLivro")
-    idUsuario = comentario.get('Id')
-    comentarios = comentario.get('Comemtario')
+    idLivro = comentario['idLivro']
+    idUsuario = comentario['idUsuario']
+    comentarios = comentario['comentarios']
+    data = date.today()
+    nota = comentario['nota']
     with conexao() as conectar:
         cursor = conectar.cursor() 
         cursor.execute(
-            'INSERT INTO dados.cometarios (idLivros,idUsuario,comentario) VALUES (%s,%s, %s)',
-            (idLivro, idUsuario,comentarios))
+            'INSERT INTO dados.comentarios (idLivros,idUsuario,comentario,dataComentario,nota) VALUES (%s,%s, %s,%s,%s)',
+            (idLivro, idUsuario,comentarios,data,nota))
         conectar.commit()
         
 def removerUmComentarios(id):
@@ -141,4 +147,27 @@ def removerUmComentarios(id):
         cursor.execute("DELETE FROM dados.comentarios WHERE idComentarios = %s", (id,))
         conectar.commit()
         cursor.close()
+        
+def TodosComentarios(idLivro):
+    idLivro = idLivro.get("IdLivro")
+    with conexao() as conectar:
+        cursor = conectar.cursor()
+        cursor.execute(
+            'SELECT comentario,dataComentario FROM dados.comentarios WHERE idLivros=%s',(idLivro)
+        )
+        comentarios = cursor.fetchall()
+        cursor.close()
+    return comentarios
+        
+## Rating
+def mediaNotas(idlivro):
+    idLivro = idlivro.get("IdLivro")
+    with conexao() as conectar:
+        cursor = conectar.cursor()
+        cursor.execute(
+            'SELECT AVG (nota) FROM dados.comentarios WHERE idLivros=%s',(idLivro)
+        )
+        media = cursor.fetchone()
+        cursor.close()
+    return media
         

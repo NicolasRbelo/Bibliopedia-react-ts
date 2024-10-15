@@ -1,0 +1,67 @@
+.container-perfil {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 26rem;
+  margin: 15rem auto;
+  padding: 1.25rem;
+  border-radius: 40px;
+  align-items: center;
+  background-color: var(--primary-color);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.container-perfil h2 {
+  text-decoration: underline;
+  color: var(--phrase-color);
+  margin-bottom: 1rem; /* Adiciona um espaço abaixo do título */
+}
+
+.container-perfil input[type="text"],
+.container-perfil input[type="file"] {
+  background-color: var(--backgroud-color);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 4px 0px inset;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  padding: 10px;
+  border: 1px solid #ccc;
+  width: 90%;
+  transition: border-color 0.3s ease; /* Adiciona uma transição suave ao foco */
+}
+
+.container-perfil input[type="text"]:focus,
+.container-perfil input[type="file"]:focus {
+  border-color: var(--phrase-color); /* Altera a cor da borda no foco */
+  outline: none; /* Remove a borda padrão de foco */
+}
+
+.btn {
+  margin-top: 1rem;
+  padding: 10px;
+  border: none;
+  width: 95%;
+  border-radius: 4px;
+  background-color: var(--phrase-color);
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease; /* Adiciona uma transformação suave ao pressionar */
+}
+
+.btn:hover {
+  background-color: var(--second-color);
+}
+
+.btn:active {
+  transform: scale(0.95); /* Efeito de pressão no botão */
+}
+
+/* Estilo para a imagem do perfil */
+.imagem-perfil {
+  width: 100px; /* Tamanho da imagem */
+  height: 100px; /* Tamanho da imagem */
+  border-radius: 50%; /* Forma circular */
+  margin-bottom: 1rem; /* Espaçamento inferior */
+  object-fit: cover; /* Mantém a proporção da imagem */
+  border: 2px solid var(--phrase-color); /* Borda ao redor da imagem */
+}

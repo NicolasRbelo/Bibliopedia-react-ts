@@ -1,0 +1,58 @@
+/* Dropdown Button */
+.dropbtn {
+  background-color: var(--primary-color);
+  color: var(--phrase-color);
+  padding: 10px;
+  font-size: 1.25rem;
+  width: 108px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: block; /* Mudar para block para manter o layout consistente */
+  opacity: 0;
+  position: absolute;
+  background-color: var(--phrase-color);
+  min-width: 108px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 0px 0px 10px 10px;
+  z-index: 1;
+  transform: translateY(-5px); /* Move para cima inicialmente */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Transição suave para ambos */
+  pointer-events: none; /* Impede cliques quando oculto */
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: var(--primary-color);
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  opacity: 1;
+  transform: translateY(0); /* Move para a posição original */
+  pointer-events: auto; /* Permite cliques quando visível */
+}
+
+/* Estilos para o botão */
+.dropdown .dropbtn {
+  border-radius: 10px;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  color: var(--backgroud-color);
+  background-color: var(--phrase-color);
+  border-radius: 10px 10px 0px 0px;
+  transition: 0.5s ease;
+}

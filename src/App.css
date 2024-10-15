@@ -1,24 +1,7 @@
-.BarraNav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 3.5rem;
-}
-
 .BarraNav a {
   color: #fff;
   text-decoration: none;
   font-size: 1.2rem;
-}
-
-.cabecario {
-  position: relative;
-  width: 100%;
-  max-width: 100%;
-  background: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .cabecario .icon {
@@ -31,8 +14,4 @@
   right: 1rem;
   top: 50%;
   transform: translateY(-50%);
-}
-
-.cabecario input {
-  background-color: #dcdcdc;
 }

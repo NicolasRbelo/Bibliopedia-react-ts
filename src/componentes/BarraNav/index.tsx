@@ -1,28 +1,33 @@
 import { Link } from 'react-router-dom'
 import BarradePesquisa from '../BarraDePesquisa'
 import './BarraNav.css'
-
+import Logo from '../../../public/logo.png'
+import { ConfigPerfil } from '../ConfigPerfil'
 const BarraNav = () => {
   const isAuthenticated = !!localStorage.getItem('user_token') // Verifica se o token existe
-  const email = localStorage.getItem('user_email') // Recupera o email do usuário, se necessário
 
   return (
     <header className="cabecario">
       <nav className="BarraNav">
+        <img src={Logo} alt="" />
         <BarradePesquisa />
-        <Link to="/" id="btn-nav">
-          Home
-        </Link>
+        <div className="bg-btn">
+          <Link to="/home" id="btn-nav">
+            Home
+          </Link>
+        </div>
 
         {/* Se o usuário estiver autenticado, mostre o perfil. Se não, mostre "Entrar" */}
         {isAuthenticated ? (
-          <Link to="/perfil" id="btn-nav">
-            Perfil {/* Pode mostrar o email ou um ícone */}
-          </Link>
+          <div className="bg-btn">
+            <ConfigPerfil />
+          </div>
         ) : (
-          <Link to="/login" id="btn-nav">
-            Entrar
-          </Link>
+          <div className="bg-btn">
+            <Link to="/login" id="btn-nav">
+              Entrar
+            </Link>
+          </div>
         )}
       </nav>
     </header>
