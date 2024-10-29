@@ -12,8 +12,11 @@ import PaginaDeEntrada from './routes/PaginaDeLogin'
 import PaginaParaCriacao from './componentes/CriaçãodeLogin'
 import SecaodeReel from './componentes/Secao_Primeira'
 import { PaginaDePerfil } from './routes/PaginaDePerfil'
+import FiltroDeLivros from './routes/ExplorarLivros/ExplorarLivros'
+const isAuthenticated = !!localStorage.getItem('user_token')
 
-// Definindo as rotas da aplicação
+const userToken = localStorage.getItem('user_token')
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -26,6 +29,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Navigate to="/home" />,
+      },
+      {
+        path: '/explorar',
+        element: <FiltroDeLivros />,
       },
     ],
   },
@@ -43,7 +50,11 @@ const router = createBrowserRouter([
   },
   {
     path: 'perfil',
-    element: <PaginaDePerfil />,
+    element: userToken ? (
+      <PaginaDePerfil TokenId={userToken} />
+    ) : (
+      <Navigate to="/login" />
+    ),
   },
 ])
 

@@ -1,4 +1,11 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
+import {
+  Navigation,
+  Pagination,
+  Autoplay,
+  EffectCoverflow,
+} from 'swiper/modules' // Inclua o EffectCoverflow
+
 import { PesquisarImagens } from '../BarraDePesquisa/ProcuraDeDados'
 import type React from 'react'
 import { useEffect, useState } from 'react'
@@ -8,23 +15,20 @@ import 'swiper/css/pagination'
 import './SecaoPrimeira.css'
 import App from '../../App'
 
-// Definindo o tipo para a imagem que será armazenada no array
 interface Imagem {
   id: string
   image: string
 }
 
-// Função para criar um dicionário de imagens
 const CriarDicionarioImagens = async (): Promise<Imagem[]> => {
   const ListaDeImagens = await PesquisarImagens('Harry Potter')
   const ArrayDeImagem: Imagem[] = []
 
-  // Verifica se ListaDeImagens é realmente um array
   if (Array.isArray(ListaDeImagens)) {
     ListaDeImagens.forEach((item: string, index: number) => {
       ArrayDeImagem.push({
-        id: (index + 1).toString(), // Converte o índice para string
-        image: item, // Usa o URL da imagem
+        id: (index + 1).toString(),
+        image: item || 'URL_DA_IMAGEM_FALLBACK', // Fallback para imagem
       })
     })
   } else {
@@ -34,12 +38,9 @@ const CriarDicionarioImagens = async (): Promise<Imagem[]> => {
   return ArrayDeImagem
 }
 
-// Componente Reel de imagens
 const SecaodeReel: React.FC = () => {
-  // Estado que armazena as imagens (array de objetos com id e image)
   const [imagens, setImagens] = useState<Imagem[]>([])
 
-  // useEffect para buscar as imagens ao carregar o componente
   useEffect(() => {
     const fetchImages = async () => {
       const data = await CriarDicionarioImagens()
@@ -55,13 +56,28 @@ const SecaodeReel: React.FC = () => {
       <div className="BackGroundSection">
         <section className="container-imagem-livros">
           <Swiper
-            slidesPerView={1} // Mostra 1 imagem por vez
-            pagination={{ clickable: true }}
+            modules={[Navigation, Pagination, Autoplay, EffectCoverflow]} // Adiciona EffectCoverflow
+            slidesPerView={3} // Ajuste para mostrar mais de um slide por vez
+            spaceBetween={30} // Espaço entre os slides
+            effect="coverflow"
             navigation
+            autoplay={{ delay: 3000 }}
+            loop={true}
+            coverflowEffect={{
+              rotate: 50, // Rotação dos slides
+              stretch: 0, // Estiramento dos slides
+              depth: 100, // Profundidade do efeito
+              modifier: 1, // Modificador de efeito
+              slideShadows: true, // Adiciona sombras aos slides
+            }}
           >
             {imagens.map(item => (
               <SwiperSlide key={item.id}>
-                <img src={item.image} alt="Slider" className="slide-item" />
+                <img
+                  src={item.image || 'URL_DA_IMAGEM_FALLBACK'}
+                  alt="Slider"
+                  className="slide-item"
+                />
               </SwiperSlide>
             ))}
           </Swiper>

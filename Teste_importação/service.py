@@ -1,8 +1,8 @@
 from livrodb import *
 
 
-def ListagemTodosLivros():
-    return Livrosdb()
+def ListagemTodosLivros(idUsuario):
+    return Livrosdb(idUsuario)
 
 def Umlivro(nome):
     return ApenasUmLivro(nome)
@@ -37,3 +37,9 @@ def loginService(usuario):
 
 def SalvarComentario(comentario):    
     return SalvarComentarios(comentario)   
+
+def ServiceMediaNotas(idlivro):
+    return mediaNotas(idlivro)
+
+def Comentarios(idLivro):
+    return TodosComentarios(idLivro)

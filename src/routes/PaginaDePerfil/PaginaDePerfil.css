@@ -58,10 +58,12 @@
 
 /* Estilo para a imagem do perfil */
 .imagem-perfil {
-  width: 100px; /* Tamanho da imagem */
-  height: 100px; /* Tamanho da imagem */
+  position: relative;
+  left: 5.2rem;
+  width: 15rem; /* Tamanho da imagem */
+  height: 15rem; /* Tamanho da imagem */
   border-radius: 50%; /* Forma circular */
   margin-bottom: 1rem; /* Espaçamento inferior */
-  object-fit: cover; /* Mantém a proporção da imagem */
+  object-fit: cover;
   border: 2px solid var(--phrase-color); /* Borda ao redor da imagem */
 }

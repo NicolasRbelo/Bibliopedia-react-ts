@@ -2,7 +2,11 @@ import axios from 'axios'
 
 // Tipos
 interface VolumeInfo {
+  publishedDate: string
+  pageCount: number
+  averageRating: number
   title: string
+  authors?: string[]
   imageLinks?: {
     smallThumbnail?: string
     thumbnail?: string // Adiciona o tipo `thumbnail`
@@ -10,12 +14,20 @@ interface VolumeInfo {
   description?: string
 }
 
+interface GoogleBooksResponse {
+  items: Item[]
+}
+
 interface Item {
   volumeInfo: VolumeInfo
 }
 
-interface GoogleBooksResponse {
-  items?: Item[]
+interface LivroDetalhado {
+  titulo: string
+  autores: string
+  imagem: string
+  dataPublicacao: string
+  paginas: number
 }
 
 // Funções de busca
@@ -103,4 +115,35 @@ export async function InformacoesGerais(
   }
   console.log(dicionario)
   return dicionario
+}
+
+export async function DadosLivrosDetalhados(
+  nome: string
+): Promise<LivroDetalhado[]> {
+  const resultados = await PesquisarLivros(nome)
+  const listaDeLivros: LivroDetalhado[] = []
+
+  if (resultados.length) {
+    // biome-ignore lint/complexity/noForEach: <explanation>
+    resultados.forEach(item => {
+      const titulo = item.volumeInfo.title
+      const autores =
+        item.volumeInfo.authors?.join(', ') || 'Autor Desconhecido'
+      const imagem =
+        item.volumeInfo.imageLinks?.thumbnail || 'Imagem não disponível'
+      const dataPublicacao =
+        item.volumeInfo.publishedDate || 'Data não disponível'
+      const paginas = item.volumeInfo.pageCount || 0
+
+      listaDeLivros.push({
+        titulo,
+        autores,
+        imagem,
+        dataPublicacao,
+        paginas,
+      })
+    })
+  }
+
+  return listaDeLivros
 }

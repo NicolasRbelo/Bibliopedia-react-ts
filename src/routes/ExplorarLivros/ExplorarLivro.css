@@ -1,0 +1,62 @@
+.explorar-livros {
+  display: grid;
+  justify-items: center;
+  margin: 0 auto;
+  position: relative;
+  top: 10rem;
+  width: 60rem;
+  height: 100%;
+  border-radius: 20px;
+  padding-bottom: 3rem;
+  box-shadow:
+    rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(
+      0,
+      0,
+      0,
+      0.12
+    ) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  background-color: var(--primary-color);
+}
+
+.explorar-livros .lista-livros {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 4rem;
+  list-style-type: none;
+}
+
+.explorar-livros .lista-livros li {
+  border-top: 1px solid black;
+  width: 50rem;
+  height: 10rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+.explorar-livros .lista-livros li img {
+  width: 110px;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.explorar-livros .lista-livros li div {
+  position: relative;
+  bottom: 10rem;
+  left: 9rem;
+  color: var(--phrase-color);
+}
+
+.explorar-livros .lista-livros li div p {
+  position: relative;
+  font-size: .7rem;
+  cursor: context-menu;
+}
+
+.explorar-livros .lista-livros li div strong {
+  cursor: pointer;
+}
+
+.explorar-livros .lista-livros li img:hover {
+  transition: .5s;
+  width: 130px;
+}

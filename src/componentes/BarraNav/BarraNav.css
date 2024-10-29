@@ -11,20 +11,27 @@
   width: 3.5rem;
   border-radius: 10px;
 }
+.BarraNav .container-btns {
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+  gap: 3rem;
+  left: 10rem;
+}
 
 .BarraNav a {
   position: relative;
   color: var(--phrase-color);
   text-decoration: none;
+  border-radius: 10px;
   font-size: 1.25rem;
   transition: 0.5s;
+  padding: 10px 10px;
 }
 
 .BarraNav a:hover {
   color: var(--backgroud-color);
   background-color: var(--phrase-color);
-  padding: 10px 10px;
-  border-radius: 10px;
   transition: 0.5s;
   text-align: center;
 }

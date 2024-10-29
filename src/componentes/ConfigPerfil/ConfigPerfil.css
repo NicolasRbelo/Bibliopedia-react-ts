@@ -23,7 +23,7 @@
   min-width: 108px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   border-radius: 0px 0px 10px 10px;
-  z-index: 1;
+  z-index: 2;
   transform: translateY(-5px); /* Move para cima inicialmente */
   transition: opacity 0.5s ease, transform 0.5s ease; /* Transição suave para ambos */
   pointer-events: none; /* Impede cliques quando oculto */

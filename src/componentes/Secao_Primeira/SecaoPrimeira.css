@@ -1,59 +1,59 @@
 /* Estilo para a seção de fundo */
 .BackGroundSection {
     margin-top: 2rem;
-    border-radius: 10px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-}
-
-
-.container-imagem-livros {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .container-imagem-livros {
     position: relative;
-    width: 50%; 
-    max-width: 28rem; 
-    margin: 0 auto; 
-    bottom: 1rem;
-}
-
-
-.swiper-container {
+    width: 80%; /* Ajustado para ocupar mais espaço */
+    max-width: 1200px; /* Tamanho máximo aumentado */
+    margin: 0 auto;
+    padding: 1rem; /* Adiciona um padding */
+  }
+  
+  .swiper-container {
     width: 100%;
-}
-
-.swiper-slide {
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-}
-
-
-.slide-item {
-    width: 75%; 
+  }
+  
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s; /* Adiciona uma transição suave */
+  }
+  
+  .slide-item {
+    width: 100%; /* Imagens ocupam 100% da largura do slide */
     height: auto; 
     object-fit: cover; 
-}
-
-
-.swiper-button-next, 
-.swiper-button-prev {
-    position: fixed; 
-    top: 35%; 
-    transform: translateY(-50%); 
+  }
+  
+  .swiper-button-next,
+  .swiper-button-prev {
     background-color: rgba(0, 0, 0, 0.5);
-    color: #fff; 
-    width: 2.5rem; 
-    height: 2.5rem; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    border-radius: 50%; 
-    cursor: pointer; 
-}
-
-.swiper-button-next {
-    right: 0.625rem;
-}
-
-
-.swiper-button-prev {
-    left: 0.625rem; 
-}
+    color: #fff;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+  
+  .swiper-button-next {
+    right: 1rem;
+  }
+  
+  .swiper-button-prev {
+    left: 1rem;
+  }
+  
+  /* Ajustes para visibilidade das setas */
+  .swiper-button-next,
+  .swiper-button-prev {
+    top: 50%; /* Centraliza verticalmente */
+    transform: translateY(-50%);
+  }
+  

@@ -17,7 +17,6 @@
 
 .Search .list {
   position: absolute;
-  top: 100%;
   left: 0;
   right: 0;
   border: 1px solid var(--phrase-color);
@@ -29,14 +28,36 @@
   margin: 0;
   z-index: 2;
   color: var(--phrase-color);
-  border-radius: 0px 10px;
+  border-radius: 0px 0px 10px 10px;
 }
 
 .Search .list li {
-  padding: 8px;
+  font-size: .9rem;
+  height: 7rem;
+  padding-top: .5rem;
   cursor: pointer;
+  border-bottom: 1px solid black;
+}
+.Search .list li div {
+  position: relative;
+  color: var(--phrase-color);
+  width: 15rem;
+  bottom: 7rem;
+  left: 6rem;
+}
+.Search .list li div p {
+  position: relative;
+  font-size: .7rem;
+  bottom: .7rem;
+}
+
+.Search .list li img {
+  position: relative;
+  width: 4.5rem;
+  left: 1rem;
 }
 
 .Search .list li:hover {
+  transition: .5s;
   background-color: var(--primary-color);
 }

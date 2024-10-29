@@ -73,6 +73,7 @@ const SecaoComentarios: React.FC<SecaoComentariosProps> = ({ LivroId }) => {
           Comentar
         </button>
       </form>
+      <ListaComentario LivroId={LivroId} />
     </section>
   )
 }

@@ -1,15 +1,25 @@
 import type React from 'react'
-import { useState, useRef, type ChangeEvent, type KeyboardEvent } from 'react'
+import {
+  useState,
+  useRef,
+  type ChangeEvent,
+  type KeyboardEvent,
+} from 'react'
 import { useNavigate } from 'react-router-dom'
 import './BarradePesquisa.css'
-import { PesquisarNomes } from './ProcuraDeDados.js'
+import { DadosLivrosDetalhados } from './ProcuraDeDados.js'
+
+interface LivroDetalhado {
+  titulo: string
+  autores: string
+  imagem: string
+}
 
 const BarradePesquisa: React.FC = () => {
-  const [suggestions, setSuggestions] = useState<string[]>([])
+  const [suggestions, setSuggestions] = useState<LivroDetalhado[]>([])
   const [inputValue, setInputValue] = useState<string>('')
   const debounceTimeout = useRef<number | null>(null)
-  const cache = useRef<{ [key: string]: string[] }>({})
-
+  const cache = useRef<{ [key: string]: LivroDetalhado[] }>({})
   const navigate = useNavigate() // Hook para navegação
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -32,9 +42,9 @@ const BarradePesquisa: React.FC = () => {
 
     debounceTimeout.current = window.setTimeout(async () => {
       try {
-        const nomes = await PesquisarNomes(value)
-        setSuggestions(nomes)
-        cache.current[value] = nomes
+        const livros = await DadosLivrosDetalhados(value)
+        setSuggestions(livros)
+        cache.current[value] = livros
       } catch (error) {
         console.error('Erro ao buscar sugestões:', error)
         setSuggestions([])
@@ -42,20 +52,21 @@ const BarradePesquisa: React.FC = () => {
     }, 300)
   }
 
-  const handleSuggestionClick = (suggestion: string) => {
-    setInputValue(suggestion)
+  const handleSuggestionClick = (titulo: string) => {
+    setInputValue(titulo)
     setSuggestions([])
-    navigate(`/livro/${encodeURIComponent(suggestion)}`) // Navegação para a página do livro
+    navigate(`/livro/${encodeURIComponent(titulo)}`) // Navegação para a página do livro
   }
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault()
       if (inputValue.trim()) {
-        navigate(`/livro/${encodeURIComponent(inputValue)}`) // Navegação ao pressionar Enter
+        navigate(`/explorar?query=${encodeURIComponent(inputValue)}`) // Navegação para a página de exploração
       }
     }
   }
+  
 
   return (
     <div className="Search">
@@ -69,11 +80,15 @@ const BarradePesquisa: React.FC = () => {
       />
       {suggestions.length > 0 && (
         <ul className="list">
-          {suggestions.map((suggestion, index) => (
+          {suggestions.map((livro, index) => (
             // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
             // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-            <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
-              {suggestion}
+            <li key={index} onClick={() => handleSuggestionClick(livro.titulo)}>
+              <img src={livro.imagem} alt={livro.titulo} width="50" />
+              <div>
+                <strong>{livro.titulo}</strong>
+                <p>Autor: {livro.autores}</p>
+              </div>
             </li>
           ))}
         </ul>

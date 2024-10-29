@@ -11,24 +11,26 @@ const BarraNav = () => {
       <nav className="BarraNav">
         <img src={Logo} alt="" />
         <BarradePesquisa />
-        <div className="bg-btn">
-          <Link to="/home" id="btn-nav">
-            Home
-          </Link>
-        </div>
-
-        {/* Se o usuário estiver autenticado, mostre o perfil. Se não, mostre "Entrar" */}
-        {isAuthenticated ? (
+        <div className='container-btns'>
           <div className="bg-btn">
-            <ConfigPerfil />
-          </div>
-        ) : (
-          <div className="bg-btn">
-            <Link to="/login" id="btn-nav">
-              Entrar
+            <Link to="/home" id="btn-nav">
+              Home
             </Link>
           </div>
-        )}
+
+          {/* Se o usuário estiver autenticado, mostre o perfil. Se não, mostre "Entrar" */}
+          {isAuthenticated ? (
+            <div className="bg-btn">
+              <ConfigPerfil />
+            </div>
+          ) : (
+            <div className="bg-btn">
+              <Link to="/login" id="btn-nav">
+                Entrar
+              </Link>
+            </div>
+          )}
+        </div>
       </nav>
     </header>
   )

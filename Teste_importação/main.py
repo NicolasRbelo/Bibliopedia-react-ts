@@ -6,8 +6,9 @@ blueprint = Blueprint('blueprint',__name__)
 
 ##livros
 
-blueprint.route('/livros', methods=['GET'])(TodosLivros)
+blueprint.route('/livros/<int:idUsuario>', methods=['GET'])(TodosLivros)
 blueprint.route('/livro', methods=['POST'])(SalveLivro)
+blueprint.route('/livro/<Pesquisa>', methods=['GET'])(ListadeLivros)
 #blueprint.route('/livro/<int:id>', methods=['DELETE'])(removerUmLivro)
 
 ##Usuarios
@@ -18,11 +19,13 @@ blueprint.route('/usuario/<int:id>', methods=['GET'])(listarApenasUmUsuario)
 blueprint.route('/usuario/<int:id>', methods=['PUT'])(atualizarUmUsuario)
 blueprint.route('/usuario/<int:id>', methods=['DELETE'])(removerUmUsuario)
 blueprint.route('/login', methods=['GET','POST'])(login)
-blueprint.route('/logout',methods=['PUT'])(logout)
+blueprint.route('/logout',methods=['POST'])(logout)
+
+
 
 
 ##Comentario
-
+blueprint.route('/comentarios/<idLivro>', methods=['GET'])(Vercomentarios)
 blueprint.route('/comentario', methods=['POST'])(salvarComentario)
 
 

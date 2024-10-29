@@ -121,11 +121,11 @@ def InformaçõesGerais(nome):
 
 ## Livros
 
-def TodosLivros():
+def TodosLivros(idUsuario):
     return make_response(
         jsonify(
             mensagem = 'Lista de livros',
-            livros = ListagemTodosLivros()
+            livros = ListagemTodosLivros(idUsuario)
         )
     )
     
@@ -138,9 +138,27 @@ def SalveLivro():
             Mensagem = "Livro salvo"
         )
     )
+    
+def ListadeLivros(pesquisa):
+    livros = PesquisarNomes(pesquisa)
+    resposta = {}
+    for i in livros:
+        resposta[i] = InformaçõesGerais(i)
+    return resposta
 
+
+    
 
 ## Usuarios
+
+class Usuario:
+    def __init__(self, Nome,Email,Senha,Imagem='https://www.shutterstock.com/image-vector/default-avatar-profile-icon-vector-600nw-1745180411.jpg'):
+        self.nome = Nome
+        self.email = Email
+        self.senha = Senha
+        self.imagem = Imagem
+        
+        
 
 def listarTodosUsuario():    
     return make_response(
@@ -151,8 +169,9 @@ def listarTodosUsuario():
     ) 
 
 def salvarUsuario():    
-    usuario = request.json     
-    verificacao = salvarUserService(usuario)
+    usuario = request.json
+    DadosUsuario = Usuario(usuario.get('Nome'), usuario.get('Email'),usuario.get('Senha'))     
+    verificacao = salvarUserService(DadosUsuario)
     if verificacao == ('Email já existe'):
         return  make_response(
             jsonify(
@@ -172,18 +191,23 @@ def salvarUsuario():
             )
         )
 
-    
-def listarApenasUmUsuario(id):       
+def listarApenasUmUsuario(id):
+    usuario = listarApenasUmUsuarioService(id)
+    DadosUsuario={'idUsuario': usuario['idUsuario'], 
+                  'NomeUsuario': usuario['NomeUsuario'], 
+                  'EmailUsuario': usuario['EmailUsuario'], 
+                  'SenhaUsuario': usuario['SenhaUsuario'], 
+                  'ImagemUsuario': str(usuario['ImagemUsuario'])}       
     return make_response(
         jsonify(
             mensagem = "Listagem de user",
-            usuario = listarApenasUmUsuarioService(id)
+            usuario = DadosUsuario
         )
     ) 
 
 def atualizarUmUsuario(id): 
     usuario = request.json
-    
+    DadosUsuario = Usuario(usuario.get('Nome'), usuario.get('Email'),usuario.get('Senha'),usuario.get('Imagem'))  
     if not isinstance(usuario.get('senha'), str):
         return make_response(
             jsonify(
@@ -191,7 +215,7 @@ def atualizarUmUsuario(id):
             )
         )
     
-    atualizarUmUsuarioService(id, usuario)          
+    atualizarUmUsuarioService(id, DadosUsuario)          
     return make_response(
         jsonify(
             mensagem = "Usuário Atualizado com sucesso!!"
@@ -267,7 +291,8 @@ def salvarComentario():
     )
     
 def Vercomentarios(idLivro):
-    Comentarios(idLivro)
+    idLivroCorrido = PesquisarId(idLivro)
+    return Comentarios(idLivroCorrido)
     
 ##Rating
 def notaLivro(idLivro):
@@ -278,3 +303,4 @@ def notaLivro(idLivro):
             nota = notaMedia
         )
     )
+    
