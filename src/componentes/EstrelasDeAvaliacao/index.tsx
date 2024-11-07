@@ -21,7 +21,9 @@ const StarRating: React.FC<StarRatingProps> = ({
     <div className="container-estrelas">
       <div className="star-rating">
         {Array.from({ length: totalStars }, (_, index) => (
-          <i
+          // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
+<i
+            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
             key={index}
             className={`star fas ${index < rating ? 'fa-star' : 'fa-star-half-alt'}`}
             onClick={() => handleClick(index + 1)}

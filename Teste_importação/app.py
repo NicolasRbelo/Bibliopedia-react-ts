@@ -10,5 +10,5 @@ app.config['SECRET_KEY'] =  'Side1912*'
 app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
 app.register_blueprint(blueprint)
-app.run(host='127.0.0.1', port=5500, debug=True)
+(app.run(host='127.0.0.1', port=5500, debug=True))
 

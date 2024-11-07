@@ -5,10 +5,10 @@ import './ListaComentaios.css'
 import { PesquisarLivros } from '../BarraDePesquisa/ProcuraDeDados'
 
 interface Comentario {
-  id: number
-  texto: string
-  rating: number
-  userId: number
+  Comentario: string
+  Date: string
+  Rating: number
+  Username: string
 }
 
 interface ListaComentarioProps {
@@ -33,6 +33,7 @@ export const ListaComentario: React.FC<ListaComentarioProps> = ({
           const data = await response.json()
           setComentarios(data)
           console.log(data)
+          console.log(comentarios)
         } else {
           console.error('Erro ao buscar os comentários:', response.status)
         }
@@ -48,13 +49,15 @@ export const ListaComentario: React.FC<ListaComentarioProps> = ({
     <div className="lista-comentarios">
       {comentarios.length > 0 ? (
         comentarios.map(comentario => (
-          <div key={comentario.id} className="comentario">
-            <p>
-              <strong>Usuário {comentario.userId}:</strong>
+          <div key={comentario.Username} className="lista-comentario">
+            <p className="username">
+              <strong>{comentario.Username}:</strong>
             </p>
-            <p>{comentario.texto}</p>
-            <StarRating rating={comentario.rating} setRating={() => {}} />{' '}
-            {/* Rating visual */}
+            <p className="user-comentario">{comentario.Comentario}</p>
+            <div className="estrelas-usuarios">
+              <StarRating rating={comentario.Rating} setRating={() => {}} />{' '}
+              <p>{comentario.Rating}</p>
+            </div>
           </div>
         ))
       ) : (

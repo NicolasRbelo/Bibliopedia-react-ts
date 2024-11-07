@@ -2,35 +2,39 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end; /* Alinhar à esquerda */
-  margin: 20px;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
 }
 
 /* Estilo do formulário */
 .form-comentario {
   position: relative;
-  right: 38rem;
+  right: 24rem;
   display: flex;
   flex-direction: column; /* Mantém os itens empilhados */
-  align-items: flex-end; /* Alinhar conteúdo do formulário à esquerda */
-  width: 100%;
+  align-items: flex-end;
   top: 2rem; /* Garante que o formulário ocupe a largura total disponível */
 }
 
 .comentarios {
   position: relative;
-  width: 100%;
-  max-width: 600px;
+  right: 6.5rem;
+  max-width: 800px;
   height: 100px;
   padding: 10px;
   border: 1px solid black;
   border-radius: 4px;
   font-size: 16px;
   margin-bottom: 15px;
-  min-width: 56rem;
+  min-width: 50rem;
   background-color: var(--backgroud--color);
+  resize: none;
 }
 
 .btn-submit {
+  position: relative;
+  right: 6.9rem;
   background-color: #28a745;
   color: white;
   padding: 10px 20px;

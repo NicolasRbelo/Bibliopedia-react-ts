@@ -25,8 +25,7 @@ const SecaoComentarios: React.FC<SecaoComentariosProps> = ({ LivroId }) => {
     setComentario(event.target.value)
   }
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const handleSubmit = async () => {
 
     const comentarioData = {
       LivroId,

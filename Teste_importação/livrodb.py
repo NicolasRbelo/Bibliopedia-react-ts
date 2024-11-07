@@ -155,11 +155,20 @@ def TodosComentarios(idLivro):
     with conexao() as conectar:
         cursor = conectar.cursor()
         cursor.execute(
-            'SELECT idUsuario,comentario,dataComentario,nota FROM dados.comentarios WHERE idLivros=%s',(idLivro,)
+            'SELECT usuarios.NomeUsuario, comentarios.comentario, comentarios.dataComentario, comentarios.nota FROM dados.comentarios JOIN dados.usuarios ON comentarios.idUsuario = usuarios.idUsuario WHERE comentarios.idLivros = %s',(idLivro,)
         )
         comentarios = cursor.fetchall()
+        todosCometarios =[]
+        for index in range(len(comentarios)):
+            
+            todosCometarios.append({
+                    "Username": comentarios[index][0],
+                    "Comentario": comentarios[index][1],
+                    "Date":comentarios[index][2],
+                    "Rating": comentarios[index][3]
+                })
         cursor.close()
-    return comentarios
+    return todosCometarios
         
 ## Rating
 def mediaNotas(idlivro):
