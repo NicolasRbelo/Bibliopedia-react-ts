@@ -1,5 +1,5 @@
 import type React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import StarRating from '../EstrelasDeAvaliacao'
 import './ListaComentaios.css'
 import { PesquisarLivros } from '../BarraDePesquisa/ProcuraDeDados'
@@ -13,17 +13,22 @@ interface Comentario {
 
 interface ListaComentarioProps {
   LivroId: string
+  refresh: boolean
 }
 
 export const ListaComentario: React.FC<ListaComentarioProps> = ({
   LivroId,
+  refresh,
 }) => {
   const [comentarios, setComentarios] = useState<Comentario[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
+  const debouceTimeout = useRef<number | null>(null)
 
   // Função para buscar os comentários do banco de dados
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const fetchComentarios = async () => {
+      setLoading(true)
       try {
         PesquisarLivros
         const response = await fetch(
@@ -32,22 +37,26 @@ export const ListaComentario: React.FC<ListaComentarioProps> = ({
         if (response.ok) {
           const data = await response.json()
           setComentarios(data)
-          console.log(data)
-          console.log(comentarios)
         } else {
           console.error('Erro ao buscar os comentários:', response.status)
         }
       } catch (error) {
         console.error('Erro ao buscar os comentários:', error)
+      } finally {
+        debouceTimeout.current = window.setTimeout(() => {
+          setLoading(false)
+        }, 1000)
       }
     }
 
     fetchComentarios()
-  }, [LivroId]) // Reexecuta quando o `LivroId` muda
+  }, [LivroId, refresh]) // Reexecuta quando o `LivroId` muda
 
   return (
     <div className="lista-comentarios">
-      {comentarios.length > 0 ? (
+      {loading ? (
+        <p>Carregando comentários...</p>
+      ) : comentarios.length > 0 ? (
         comentarios.map(comentario => (
           <div key={comentario.Username} className="lista-comentario">
             <p className="username">
@@ -55,7 +64,7 @@ export const ListaComentario: React.FC<ListaComentarioProps> = ({
             </p>
             <p className="user-comentario">{comentario.Comentario}</p>
             <div className="estrelas-usuarios">
-              <StarRating rating={comentario.Rating} setRating={() => {}} />{' '}
+              <StarRating rating={comentario.Rating} setRating={() => {}} />
               <p>{comentario.Rating}</p>
             </div>
           </div>

@@ -23,6 +23,7 @@ const BarraNav = () => {
             <div className="bg-btn">
               <ConfigPerfil />
             </div>
+            
           ) : (
             <div className="bg-btn">
               <Link to="/login" id="btn-nav">

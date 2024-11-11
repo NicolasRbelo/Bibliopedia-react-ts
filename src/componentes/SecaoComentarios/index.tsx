@@ -1,5 +1,5 @@
 import type React from 'react'
-import { useState, type ChangeEvent, type FormEvent, useEffect } from 'react'
+import { useState, type ChangeEvent, useEffect } from 'react'
 import './SecaoComentario.css'
 import StarRating from '../EstrelasDeAvaliacao'
 import { ListaComentario } from '../ListaComentarios'
@@ -12,6 +12,7 @@ const SecaoComentarios: React.FC<SecaoComentariosProps> = ({ LivroId }) => {
   const [comentario, setComentario] = useState<string>('')
   const [rating, setRating] = useState<number>(3)
   const [userId, setUserId] = useState<number | null>(null)
+  const [refreshComments, setRefreshComments] = useState<boolean>(false)
 
   useEffect(() => {
     const storedToken = localStorage.getItem('user_token')
@@ -25,7 +26,8 @@ const SecaoComentarios: React.FC<SecaoComentariosProps> = ({ LivroId }) => {
     setComentario(event.target.value)
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event: { preventDefault: () => void }) => {
+    event.preventDefault()
 
     const comentarioData = {
       LivroId,
@@ -48,6 +50,7 @@ const SecaoComentarios: React.FC<SecaoComentariosProps> = ({ LivroId }) => {
       if (response.ok) {
         console.log('Comentário enviado com sucesso!')
         setComentario('')
+        setRefreshComments(prev => !prev)
       } else {
         console.error('Erro ao enviar o comentário', response.status)
       }
@@ -72,7 +75,7 @@ const SecaoComentarios: React.FC<SecaoComentariosProps> = ({ LivroId }) => {
           Comentar
         </button>
       </form>
-      <ListaComentario LivroId={LivroId} />
+      <ListaComentario LivroId={LivroId} refresh={refreshComments} />
     </section>
   )
 }

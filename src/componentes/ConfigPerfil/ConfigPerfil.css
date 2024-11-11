@@ -16,7 +16,8 @@
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
-  display: block; /* Mudar para block para manter o layout consistente */
+  display: block;
+  font-size: 1rem; /* Mudar para block para manter o layout consistente */
   opacity: 0;
   position: absolute;
   background-color: var(--phrase-color);
@@ -33,6 +34,7 @@
 .dropdown-content a {
   color: var(--primary-color);
   padding: 10px;
+  font-size: 1rem;
   text-decoration: none;
   display: block;
 }

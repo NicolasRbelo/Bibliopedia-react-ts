@@ -13,6 +13,7 @@ import PaginaParaCriacao from './componentes/CriaçãodeLogin'
 import SecaodeReel from './componentes/Secao_Primeira'
 import { PaginaDePerfil } from './routes/PaginaDePerfil'
 import FiltroDeLivros from './routes/ExplorarLivros/ExplorarLivros'
+import { Biblioteca } from './routes/Biblioteca'
 const isAuthenticated = !!localStorage.getItem('user_token')
 
 const userToken = localStorage.getItem('user_token')
@@ -56,6 +57,9 @@ const router = createBrowserRouter([
       <Navigate to="/login" />
     ),
   },
+  {path:"biblioteca",
+    element:<Biblioteca/>
+  }
 ])
 
 // Renderiza o RouterProvider com as rotas configuradas

@@ -42,7 +42,7 @@ export const ConfigPerfil = () => {
     if (token) {
       try {
         const response = await fetch('http://127.0.0.1:5500/logout', {
-          method: 'PUT',
+          method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
@@ -70,6 +70,7 @@ export const ConfigPerfil = () => {
         <a href="#" onClick={handleClick}>
           Logout
         </a>
+        <a href="/biblioteca">Biblioteca</a>
       </div>
     </div>
   )
