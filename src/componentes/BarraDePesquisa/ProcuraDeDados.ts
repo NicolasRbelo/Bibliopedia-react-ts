@@ -19,6 +19,8 @@ interface GoogleBooksResponse {
 }
 
 interface Item {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  id: any
   volumeInfo: VolumeInfo
 }
 
@@ -105,16 +107,36 @@ export async function PesquisarDescricao(nome: string): Promise<string> {
   return 'Descrição não disponível'
 }
 
+
 export async function InformacoesGerais(
   nome: string
-): Promise<{ Nome: string; imagem: string; Descricao: string }> {
+): Promise<{ Nome: string; imagem: string; Descricao: string; autor: string; genero: string }> {
+  // Primeiro, pesquise os livros para encontrar o ID do primeiro resultado relevante
+  const livros = await PesquisarLivros(nome);
+  if (livros.length === 0) {
+    throw new Error('Livro não encontrado');
+  }
+
+  // Pegue o primeiro livro na lista de resultados
+  const primeiroLivro = livros[0];
+  const livroId = primeiroLivro.id;
+
+  // Obtenha as informações de nome, imagem e descrição
   const dicionario = {
     Nome: await PesquisarNome(nome),
     imagem: await PesquisarImagem(nome),
     Descricao: await PesquisarDescricao(nome),
-  }
-  console.log(dicionario)
-  return dicionario
+  };
+
+  // Obtenha o autor e gênero usando o ID do livro
+  const { autor, genero } = await PesquisarGeneroEAutor(livroId);
+
+  // Adicione o autor e gênero ao objeto dicionário
+  return {
+    ...dicionario,
+    autor,
+    genero
+  };
 }
 
 export async function DadosLivrosDetalhados(
@@ -146,4 +168,21 @@ export async function DadosLivrosDetalhados(
   }
 
   return listaDeLivros
+}
+
+export async function PesquisarGeneroEAutor(id: string): Promise<{ autor: string; genero: string }> {
+  const url = `https://www.googleapis.com/books/v1/volumes/${id}`;
+  
+  try {
+    const response = await axios.get(url);
+    const data = response.data;
+    
+    const autor = data.volumeInfo.authors ? data.volumeInfo.authors.join(', ') : 'Autor desconhecido';
+    const genero = data.volumeInfo.categories ? data.volumeInfo.categories.join(', ') : 'Gênero desconhecido';
+    
+    return { autor, genero };
+  } catch (error) {
+    console.error('Erro ao buscar o gênero e autor:', error);
+    return { autor: 'Desconhecido', genero: 'Desconhecido' };
+  }
 }

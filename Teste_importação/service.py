@@ -1,4 +1,5 @@
 from livrodb import *
+from userdb import *
 
 
 def ListagemTodosLivros(idUsuario):
@@ -10,28 +11,28 @@ def Umlivro(nome):
 def SalvarLivro(dado):
     return AdicionarLivro(dado)
 
-def RemoverUm(id):
-    return RemoverUmLivro(id)
+def RemoverUm(idLivro):
+    return RemoverUmLivro(idLivro)
 
 ## Usuarios
 
 def listagemTodosUsuariosService():    
-    return listagemTodosUsuarios()
+    return listagemTodosUsuariosdb()
 
 def salvarUserService(usuario):    
-    return salvarUsuario(usuario)   
+    return salvarUsuariodb(usuario)   
 
 def listarApenasUmUsuarioService(id):    
-    return listarApenasUmUsuario(id) 
+    return listarApenasUmUsuariodb(id) 
 
 def atualizarUmUsuarioService(id, usuario):
-    return atualizarUmUsuario(id, usuario) 
+    return atualizarUmUsuariodb(id, usuario) 
 
 def removerUmUsuarioService(id):
-    return removerUmUsuario(id) 
+    return removerUmUsuariodb(id) 
 
 def loginService(usuario):
-    return login(usuario) 
+    return logindb(usuario) 
 
 ##Comentario
 

@@ -1,5 +1,6 @@
 from flask import Blueprint
 from livroController import *
+from userController import *
 
 
 blueprint = Blueprint('blueprint',__name__)

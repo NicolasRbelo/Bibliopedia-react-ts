@@ -1,0 +1,15 @@
+.container-biblioteca {
+  width: 100%;
+  height: 100%;
+  border: 10px ridge black;
+}
+.container-biblioteca h1 {
+  display: flex;
+  justify-content: center;
+}
+
+.container-biblioteca .container-livros {
+  width: 100%;
+  height: 100%;
+  border-top: 10px ridge black;
+}
