@@ -34,12 +34,23 @@ def RemoverUmLivro(id):
                     )
             conectar.commit()
 
+def DeletaLivroDB(dados):
+    idusuario = dados['idUsuario']
+    idLivro = dados['idLivro']
+    with conexao() as conectar:
+        cursor = conectar.cursor()
+        cursor.execute(
+            'DELETE FROM dados.livros WHERE idlivros= %s AND idUsuario = %s',
+            (idLivro, idusuario)
+        )
+        conectar.commit()
+        cursor.close()
 
 def Livrosdb(idUsuario):
     with conexao() as conectar:
         cursor = conectar.cursor(dictionary=True)
         cursor.execute(
-         "SELECT livrosnome FROM dados.livros WHERE idUsuario=%s",(idUsuario,)
+         "SELECT * FROM dados.livros WHERE idUsuario=%s",(idUsuario,)
         )
         livros = cursor.fetchall()
     return livros

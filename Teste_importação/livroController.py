@@ -157,6 +157,18 @@ def ListadeLivros(pesquisa):
     for i in livros:
         resposta[i] = InformaçõesGerais(i)
     return resposta
+def DeletarLivro(idLivro):
+    livro = request.json
+    dicionario_dados = {'idUsuario' : livro.get('idUser'),
+                        'idLivro' : idLivro
+                        }
+    DeletaLivroDB(dicionario_dados)
+    return make_response(
+        jsonify(
+            mensagem = 'Livro excluido'
+        )
+    )
+
 
 
     
